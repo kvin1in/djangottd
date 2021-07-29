@@ -1,10 +1,49 @@
+import unittest
+
 from selenium import webdriver
-from selenium.webdriver import FirefoxOptions
 
-# opts = FirefoxOptions()
-# opts.add_argument("--headless")
-# browser = webdriver.Firefox(options=opts)
-browser = webdriver.Chrome()
-browser.get('http://localhost:8000')
 
-assert 'The install worked successfully! Congratulations!' in browser.title
+class NewVisitorTest(unittest.TestCase):
+    '''тест нового пользователя'''
+
+    def setUp(self) -> None:
+        self.browser = webdriver.Chrome()
+
+    def tearDown(self) -> None:
+        '''Демонтаж'''
+        self.browser.quit()
+
+    def test_can_start_a_list_and_retrieve_it_later(self):
+        '''тест: можно начать список и получить его позже'''
+        # Даша слышала про крутое новое приложение со списком
+        # неотложных дел. Она решает оценить его домашнюю страницу
+        self.browser.get("http://localhost:8000")
+
+        # Она видит, что заголовок и шапка страницы говорят о списках
+        # неотложных дел.
+
+        self.assertIn("To-Do", self.browser.title)
+        self.fail("Закончить тест!")
+
+        # Она набирает в текстовом поле "Купить павлиньи перья" (ее хобби -
+        # вязание рыболовных мушек)
+
+        # Когда она нажимает Enter, страница обновляется, и теперь страница
+        # содержит "1: Купить павлиньи перья" в качестве элемента списка
+
+        # Текстовое поле по-прежнему приглашает ее добавить еще один элемент.
+        # Она вводит "Сделать мушку из павлиньих перьев"
+
+        # Страница снова обновляется и теперь показывает оба элемента ее списка
+
+        # Даше интересно, заполнит ли сайт ее список. Далее она видит, что
+        # сайт сгенерировал для нее уникальный URL-адрес - об этом
+        # выводится небольшой текст с обьяснениями.
+
+        # Она посещает этот URL-адрес - ее список по-прежнему там.
+
+        # Удовлетворенная, она снова ложится спать
+
+
+if __name__ == '__main__':
+    unittest.main(warnings='ignore')
