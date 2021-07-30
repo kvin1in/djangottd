@@ -22,7 +22,7 @@ class NewVisitorTest(unittest.TestCase):
         # Она видит, что заголовок и шапка страницы говорят о списках
         # неотложных дел.
 
-        self.assertIn("To-Do", self.browser.title)
+        self.assertIn("To-Do lists", self.browser.title)
         self.fail("Закончить тест!")
 
         # Она набирает в текстовом поле "Купить павлиньи перья" (ее хобби -
