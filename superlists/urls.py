@@ -19,4 +19,5 @@ from lists import views
 
 urlpatterns = [
     path('', views.home_page),
+    path('lists/theonelistatworld', views.view_list, name='view_list')
 ]
