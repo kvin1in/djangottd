@@ -68,7 +68,6 @@ class NewVisitorTest(LiveServerTestCase):
         # Страница снова обновляется и теперь показывает оба элемента ее списка
         self.wait_for_row_in_list_table('1: Купить павлиньи перья')
         self.wait_for_row_in_list_table('2: Сделать мушку из павлиньих перьев')
-        self.fail('Закончить тест!')
 
 
         # Удовлетворенная, она снова ложится спать
@@ -93,7 +92,7 @@ class NewVisitorTest(LiveServerTestCase):
         # Мы испозуем новый сеанс браузера, тем самым обеспечивая, чтобы никакая
         # информация от Даши не прошла через сеанс
         self.browser.quit()
-        self.browser = webdriver.Chrome
+        self.browser = webdriver.Chrome()
 
         # Френсис посещает домашнюю страницу. Нет никаких признаков Эдит
         self.browser.get(self.live_server_url)
