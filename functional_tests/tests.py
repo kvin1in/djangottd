@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 
 MAX_WAIT = 10
 
+
 class NewVisitorTest(LiveServerTestCase):
     '''тест нового пользователя'''
 
@@ -69,10 +70,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.wait_for_row_in_list_table('1: Купить павлиньи перья')
         self.wait_for_row_in_list_table('2: Сделать мушку из павлиньих перьев')
 
-
         # Удовлетворенная, она снова ложится спать
-
-
 
     def test_multiple_users_can_start_lists_at_different_urls(self):
         '''тест: многочисленные посетители могут начать списки с разным url'''
@@ -116,3 +114,29 @@ class NewVisitorTest(LiveServerTestCase):
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Купить павлиньи перья', page_text)
         self.assertIn('Купить молоко', page_text)
+
+    def test_layout_and_styling(self):
+        '''тест макета и стилевого оформления'''
+        # Даша открывает домашнюю страницу
+        self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)
+
+        # Она замечает, что поле аккуратно центрировано
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta=10
+        )
+
+        # Она начинает новый список и видит, что поле ввода там тоже
+        # аккуратно центрировано
+        inputbox.send_keys('testing')
+        inputbox.send_keys(Keys.ENTER)
+        self.wait_for_row_in_list_table('1: testing')
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta=10
+        )
