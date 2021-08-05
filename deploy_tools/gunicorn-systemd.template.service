@@ -1,0 +1,16 @@
+[sudo] password for kvin:
+[Unit]
+Description=gunicorn daemon
+
+[Service]
+Restart=on-failture
+User=kvin
+WorkingDirectory=/home/kvin/sites/kshumov.com/source
+ExecStart=/home/kvin/sites/kshumov.com/virtualenv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/tmp/kshumov.com.socket \
+          superlists.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
