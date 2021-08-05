@@ -29,7 +29,7 @@ def _get__latest_source(source_folder):
     if exists(source_folder + '/.git'):
         run(f'cd {source_folder} && git fetch')
     else:
-        run(f'git clone {REPO_URL}{source_folder}')
+        run(f'git clone {REPO_URL} {source_folder}')
     current_commit = local('git log -n 1 --format=%H', capture=True)
     run(f'cd {source_folder} && git reset --hard {current_commit}')
 
@@ -40,9 +40,9 @@ def _update_settings(source_folder, site_name):
     sed(settings_path, "DEBUG = True", "DEBUG = False")
     sed(settings_path,
         'ALLOWED_HOSTS =.+$',
-        f'ALLOWED_HOSTS = ["site_name"]'
+        f'ALLOWED_HOSTS = ["{site_name}"]'
         )
-    secret_key_file = source_folder + '/superlists/settings.py'
+    secret_key_file = source_folder + '/superlists/secret_key.py'
     if not exists(secret_key_file):
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(_-=+)'
         key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
