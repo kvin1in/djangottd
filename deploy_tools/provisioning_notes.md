@@ -3,7 +3,12 @@
 
 * nginx
 * virtualenv + pip
-* Git sudo apt update ssh root@your_server_ip adduser kvin usermod -aG sudo kvin
+* Git 
+
+sudo apt update 
+ssh root@your_server_ip 
+adduser kvin usermod -aG 
+sudo kvin
 
 ufw app list 
 ufw allow OpenSSH 

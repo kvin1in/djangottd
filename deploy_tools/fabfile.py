@@ -12,10 +12,10 @@ def deploy():
     source_folder = site_folder + '/source'
     _create_dictionary_structure_if_necessary(site_folder)
     _get__latest_source(source_folder)
-    _update_settings(site_folder, env.host)
+    _update_settings(source_folder, env.host)
     _update_virtualenv(source_folder)
-    _update_static_files(site_folder)
-    _update_database(site_folder)
+    _update_static_files(source_folder)
+    _update_database(source_folder)
 
 
 def _create_dictionary_structure_if_necessary(site_folder):
@@ -54,7 +54,7 @@ def _update_virtualenv(source_folder):
     '''обновить виртуальную среду'''
     virtualenv_folder = source_folder + '/../virtualenv'
     if not exists(virtualenv_folder + 'bin/pip'):
-        run(f'python3.8 -m venv {virtualenv_folder}')
+        run(f'virtualenv {virtualenv_folder}')
     run(f'{virtualenv_folder}/bin/pip install -r {source_folder}/requirements.txt')
 
 
