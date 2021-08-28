@@ -34,14 +34,10 @@ class ListAndItemModelTest(TestCase):
         self.assertEqual(second_saved_item.text, 'Item the second')
         self.assertEqual(second_saved_item.list, list_)
 
-
-class ListAndItemModelsTest(TestCase):
-    '''тест моделей списка и элемента списка'''
-
     def test_cannot_save_empty_list_items(self):
         '''тест: нельзя добавлять пустые элементы списка'''
         list_ = List.objects.create()
-        item = Item(list = list_, text='')
+        item = Item(list=list_, text='')
         with self.assertRaises(ValidationError):
             item.save()
             item.full_clean()
